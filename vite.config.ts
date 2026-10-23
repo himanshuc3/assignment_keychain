@@ -8,6 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
-    css: false,
+    // antd styles are irrelevant to tests, but the print stylesheet is inlined into the exported document.
+    css: { include: [/print\.css/] },
   },
 });

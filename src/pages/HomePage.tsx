@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined, FileAddOutlined, PlusOutlined } from '@ant-design/icons';
 import { Alert, App as AntApp, Button, Card, Col, Empty, Popconfirm, Row, Space, Tag, Typography } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createDraftInstance } from '../domain/instance';
 import type { Template } from '../domain/template';
 import { modelOf } from '../fields/models';
@@ -111,7 +111,11 @@ export function HomePage() {
                   </Typography.Title>
                   <Space size={[4, 8]} wrap>
                     <Tag>{countDataFields(t)} fields</Tag>
-                    <Tag color="blue">{submittedCount(t.id)} filled</Tag>
+                    <Link to={`/templates/${t.id}/responses`} onClick={(e) => e.stopPropagation()}>
+                      <Tag color="blue" style={{ cursor: 'pointer' }}>
+                        {submittedCount(t.id)} filled
+                      </Tag>
+                    </Link>
                   </Space>
                   <Typography.Paragraph type="secondary" style={{ margin: '12px 0 0', fontSize: 12 }}>
                     Modified {formatModified(t.updatedAt)}

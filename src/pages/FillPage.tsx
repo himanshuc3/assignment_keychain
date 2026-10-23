@@ -1,5 +1,6 @@
 import { ArrowLeftOutlined, CheckCircleFilled } from '@ant-design/icons';
 import { Alert, App as AntApp, Button, Card, Result, Space, Typography } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FormRenderer } from '../components/FormRenderer';
@@ -7,6 +8,7 @@ import type { Instance, Values } from '../domain/template';
 import { fillReducer, initFillState, visibleErrors } from '../fill/fillReducer';
 import { resolveForm, submittableValues } from '../logic/resolve';
 import { validateForm } from '../logic/validate';
+import { printInstance } from '../print/printInstance';
 import { repository, useInstance } from '../storage';
 import { StorageError } from '../storage/repository';
 
@@ -165,6 +167,19 @@ function FillForm({ instance }: { instance: Instance }) {
 
         {submitted ? (
           <Space wrap>
+            <Button
+              type="primary"
+              icon={<DownloadOutlined />}
+              onClick={() => {
+                try {
+                  printInstance(instance);
+                } catch (err) {
+                  message.error(err instanceof Error ? err.message : 'Could not open the print preview');
+                }
+              }}
+            >
+              Download PDF
+            </Button>
             <Link to={`/templates/${instance.templateId}/responses`}>
               <Button>View all responses</Button>
             </Link>

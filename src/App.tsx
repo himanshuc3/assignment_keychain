@@ -3,6 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { BuilderRoute } from './builder/BuilderPage';
 import { FillPage } from './pages/FillPage';
 import { HomePage } from './pages/HomePage';
+import { ResponsesPage } from './pages/ResponsesPage';
 
 const { Header, Content } = Layout;
 
@@ -19,6 +20,7 @@ export function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/builder/:templateId" element={<BuilderRoute />} />
+            <Route path="/templates/:templateId/responses" element={<ResponsesPage />} />
             <Route path="/fill/:instanceId" element={<FillPage />} />
           </Routes>
         </Content>
