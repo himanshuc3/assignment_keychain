@@ -17,3 +17,6 @@ globalThis.ResizeObserver ??= class {
   unobserve() {}
   disconnect() {}
 };
+
+// jsdom doesn't implement scrolling.
+Element.prototype.scrollIntoView ??= () => undefined;

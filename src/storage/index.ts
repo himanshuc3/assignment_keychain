@@ -26,3 +26,9 @@ export function useInstances(templateId?: string): LoadReport<Instance> {
   // eslint-disable-next-line react-hooks/exhaustive-deps -- `version` is the invalidation key
   return useMemo(() => repository.loadInstances(templateId), [version, templateId]);
 }
+
+export function useInstance(id: string | undefined): Instance | undefined {
+  const version = useRepositoryVersion();
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `version` is the invalidation key
+  return useMemo(() => (id ? repository.getInstance(id) : undefined), [version, id]);
+}
