@@ -31,7 +31,11 @@ export function validateTemplate(template: Template): TemplateIssue[] {
 
     const parsed = model.configSchema.safeParse(field);
     if (!parsed.success) {
-      for (const issue of parsed.error.issues) issues.push({ fieldId: field.id, message: issue.message });
+      for (const issue of parsed.error.issues) {
+        // Rule problems are reported as "Rule N: …" so the author can find them.
+        const ruleIndex = issue.path[0] === 'rules' && typeof issue.path[1] === 'number' ? issue.path[1] + 1 : null;
+        issues.push({ fieldId: field.id, message: ruleIndex ? `Rule ${ruleIndex}: ${issue.message}` : issue.message });
+      }
     }
 
     field.rules.forEach((rule, i) => {

@@ -31,7 +31,8 @@ export type FieldType = keyof ModelRegistry;
 export const FIELD_TYPES = Object.keys(modelRegistry) as FieldType[];
 
 export type ConfigOf<K extends FieldType> = ReturnType<ModelRegistry[K]['createDefault']>;
-export type ValueOf<K extends FieldType> = NonNullable<ReturnType<ModelRegistry[K]['valueSchema']['parse']>> | undefined;
+/** The (non-empty) value type of a field; `undefined` for display-only fields. */
+export type ValueOf<K extends FieldType> = ReturnType<ModelRegistry[K]['valueSchema']['parse']>;
 
 /** Discriminated union of every field config, derived from the registry. */
 export type FieldConfig = { [K in FieldType]: ConfigOf<K> }[FieldType];
