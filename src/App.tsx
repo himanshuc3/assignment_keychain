@@ -1,25 +1,26 @@
-import { Layout, Typography } from 'antd';
+import { App as AntApp, Layout } from 'antd';
 import { Link, Route, Routes } from 'react-router-dom';
+import { FillPage } from './pages/FillPage';
+import { HomePage } from './pages/HomePage';
 
 const { Header, Content } = Layout;
 
-function Home() {
-  return <Typography.Title level={3}>Templates</Typography.Title>;
-}
-
 export function App() {
   return (
-    <Layout style={{ minHeight: '100%' }}>
-      <Header style={{ borderBottom: '1px solid #eceef5', display: 'flex', alignItems: 'center' }}>
-        <Link to="/" style={{ fontWeight: 600, fontSize: 18 }}>
-          Form Builder
-        </Link>
-      </Header>
-      <Content style={{ padding: 24 }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Content>
-    </Layout>
+    <AntApp>
+      <Layout style={{ minHeight: '100%' }}>
+        <Header style={{ borderBottom: '1px solid #eceef5', display: 'flex', alignItems: 'center' }}>
+          <Link to="/" style={{ fontWeight: 600, fontSize: 18 }}>
+            Form Builder
+          </Link>
+        </Header>
+        <Content style={{ padding: 24 }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/fill/:instanceId" element={<FillPage />} />
+          </Routes>
+        </Content>
+      </Layout>
+    </AntApp>
   );
 }

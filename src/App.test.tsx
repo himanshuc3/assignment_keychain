@@ -3,7 +3,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { App } from './App';
 
 describe('App shell', () => {
-  it('renders the header and home route', () => {
+  beforeEach(() => window.localStorage.clear());
+
+  it('renders the header and an empty templates list', () => {
     render(
       <MemoryRouter>
         <App />
@@ -11,5 +13,6 @@ describe('App shell', () => {
     );
     expect(screen.getByText('Form Builder')).toBeInTheDocument();
     expect(screen.getByText('Templates')).toBeInTheDocument();
+    expect(screen.getByText('No templates yet')).toBeInTheDocument();
   });
 });
