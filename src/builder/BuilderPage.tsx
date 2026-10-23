@@ -88,17 +88,8 @@ function Builder({ initial, isNew }: { initial: Template; isNew: boolean }) {
   }
 
   return (
-    <div style={{ margin: -24, height: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column' }}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          padding: '10px 16px',
-          background: '#fff',
-          borderBottom: '1px solid #eceef5',
-        }}
-      >
+    <div className="builder-root">
+      <div className="builder-bar">
         <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/')}>
           Back
         </Button>
@@ -123,7 +114,7 @@ function Builder({ initial, isNew }: { initial: Template; isNew: boolean }) {
         </Space>
       </div>
 
-      <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '260px 1fr 360px', gap: 16, padding: 16 }}>
+      <div className="builder-grid">
         <Palette onAdd={(fieldType) => dispatch({ type: 'addField', fieldType, afterId: selectedId })} />
         <div style={{ overflow: 'auto', paddingRight: 4 }}>
           {shownIssues.length > 0 && (
@@ -143,7 +134,7 @@ function Builder({ initial, isNew }: { initial: Template; isNew: boolean }) {
           )}
           <Canvas template={template} selectedId={selectedId} issues={shownIssues} dispatch={dispatch} />
         </div>
-        <div style={{ overflow: 'auto', background: '#fff', border: '1px solid #eceef5', borderRadius: 8, padding: 16 }}>
+        <div className="builder-config">
           <ConfigPanel
             field={selected}
             fields={template.fields}

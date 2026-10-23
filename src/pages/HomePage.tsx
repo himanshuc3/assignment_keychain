@@ -12,6 +12,8 @@ export function countDataFields(template: Template): number {
   return template.fields.filter((f) => modelOf(f).behaviour !== 'display').length;
 }
 
+const plural = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`;
+
 function formatModified(iso: string): string {
   return new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
 }
@@ -73,6 +75,7 @@ export function HomePage() {
                     <Button
                       key="fill"
                       type="link"
+                      size="small"
                       icon={<FileAddOutlined />}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -81,7 +84,7 @@ export function HomePage() {
                     >
                       New Response
                     </Button>,
-                    <Button key="edit" type="link" icon={<EditOutlined />}>
+                    <Button key="edit" type="link" size="small" icon={<EditOutlined />}>
                       Edit
                     </Button>,
                     <Popconfirm
@@ -100,7 +103,7 @@ export function HomePage() {
                       }}
                       onCancel={(e) => e?.stopPropagation()}
                     >
-                      <Button type="link" danger icon={<DeleteOutlined />} onClick={(e) => e.stopPropagation()}>
+                      <Button type="link" size="small" danger icon={<DeleteOutlined />} onClick={(e) => e.stopPropagation()}>
                         Delete
                       </Button>
                     </Popconfirm>,
@@ -110,7 +113,7 @@ export function HomePage() {
                     {t.title || 'Untitled form'}
                   </Typography.Title>
                   <Space size={[4, 8]} wrap>
-                    <Tag>{countDataFields(t)} fields</Tag>
+                    <Tag>{plural(countDataFields(t), 'field')}</Tag>
                     <Link to={`/templates/${t.id}/responses`} onClick={(e) => e.stopPropagation()}>
                       <Tag color="blue" style={{ cursor: 'pointer' }}>
                         {submittedCount(t.id)} filled
