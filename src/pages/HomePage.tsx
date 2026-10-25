@@ -19,6 +19,10 @@ function formatModified(iso: string): string {
 }
 
 export function HomePage() {
+  /**
+   * Loading the local storage and saving state for new response in that,
+   * instead of in-memory
+   */
   const navigate = useNavigate();
   const { message } = AntApp.useApp();
   const { items: templates, skipped } = useTemplates();
